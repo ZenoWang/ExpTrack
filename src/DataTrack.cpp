@@ -4,7 +4,6 @@
 
 #include "DataTrack.h"
 
-#define DEBUG
 
 char DataTrack::CMDHIS[] = "CMDHistory";
 
@@ -13,6 +12,10 @@ char DataTrack::CMDENCRYPT[] = "CMDEncrypt";
 char DataTrack::EXPDATA[] = "ExpData";
 
 char DataTrack::EXPENCRYPT[] = "ExpEncrypt";
+
+char DataTrack::LASTCOMM[] = "Lastcomm";
+
+char DataTrack::LASTENCRYPT[] = "LastEncrypt";
 
 DataTrack::DataTrack() {
     encryptor = new Encrypt();
@@ -45,6 +48,12 @@ void DataTrack::getCMDHistory() {
 #ifndef DEBUG
     hd.RM(CMDHIS);
 #endif
+
+}
+
+int DataTrack::moniProcRunTime() {
+
+    return system("accton on");
 
 }
 
@@ -91,6 +100,19 @@ void DataTrack::getStudentInfo(ExpData &expData) {
     strcpy(expData.classID, "");
     strcpy(expData.name, "");
     strcpy(expData.taskID, "");
+}
+
+void DataTrack::getLastcomm() {
+    std::string cmd = "lastcomm zeno > ";
+    cmd.append(LASTCOMM);
+    system(cmd.c_str());
+
+    encryptor->encrypt(LASTCOMM, LASTENCRYPT);
+
+#ifndef DEBUG
+    HandleData hd;
+    hd.RM(LASTCOMM);
+#endif
 }
 
 DataTrack::~DataTrack() {

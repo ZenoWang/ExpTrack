@@ -37,11 +37,15 @@ public:
     static char CMDENCRYPT[];
     static char EXPDATA[];
     static char EXPENCRYPT[];
+    static char LASTCOMM[];
+    static char LASTENCRYPT[];
 
     void getCMDHistory();
     void getExpData();
+    int moniProcRunTime();
 
 
+    void getLastcomm();
 };
 
 
